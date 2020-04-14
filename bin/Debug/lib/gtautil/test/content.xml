@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<CDataFileMgr__ContentsOfDataFileXml>
+  <disabledFiles />
+  <includedXmlFiles />
+  <includedDataFiles />
+  <dataFiles>
+    <Item>
+      <filename>dlc_bmm:/data/vehicles.meta</filename>
+      <fileType>VEHICLE_METADATA_FILE</fileType>
+      <overlay value="false" />
+      <disabled value="true" />
+      <persistent value="false" />
+    </Item>
+    <Item>
+      <filename>dlc_bmm:/data/carvariations.meta</filename>
+      <fileType>VEHICLE_VARIATION_FILE</fileType>
+      <overlay value="false" />
+      <disabled value="true" />
+      <persistent value="false" />
+    </Item>
+    <Item>
+      <filename>dlc_bmm:/data/dlctext.meta</filename>
+      <fileType>TEXTFILE_METAFILE</fileType>
+      <overlay value="false" />
+      <disabled value="true" />
+      <persistent value="false" />
+    </Item>
+    <Item>
+      <filename>dlc_bmm:/data/handling.meta</filename>
+      <fileType>HANDLING_FILE</fileType>
+      <overlay value="false" />
+      <disabled value="true" />
+      <persistent value="false" />
+    </Item>	
+    <Item>
+      <filename>dlc_bmm:/%PLATFORM%/vehicles.rpf</filename>
+      <fileType>RPF_FILE</fileType>
+      <overlay value="false" />
+      <disabled value="true" />
+      <persistent value="true" />
+    </Item>
+  </dataFiles>
+  <contentChangeSets>
+	<Item>
+	  <changeSetName>bmm_AUTOGEN</changeSetName>
+	  <filesToDisable />
+	  <filesToEnable>
+        <Item>dlc_bmm:/data/handling.meta</Item>
+        <Item>dlc_bmm:/data/vehicles.meta</Item>
+        <Item>dlc_bmm:/data/carvariations.meta</Item>
+        <Item>dlc_bmm:/data/dlctext.meta</Item>	
+	<Item>dlc_bmm:/%PLATFORM%/vehicles.rpf</Item>
+	  </filesToEnable>
+	  <txdToLoad />
+	  <txdToUnload />
+	  <residentResources />
+	  <unregisterResources />
+	</Item>
+  </contentChangeSets>
+  <patchFiles />
+</CDataFileMgr__ContentsOfDataFileXml>
