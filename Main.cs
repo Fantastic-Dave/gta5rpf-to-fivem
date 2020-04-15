@@ -20,8 +20,10 @@ using System.Text.RegularExpressions;
 
 namespace GTA5_RPF_FiveM_Convertor
 {
+
     public partial class Main : Form
     {
+
 
         // GLOBALS
 
@@ -245,6 +247,7 @@ namespace GTA5_RPF_FiveM_Convertor
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
             this.ActiveControl = label1; // prevent random textbox focus
             LogAppend("CFG Helpers switched on");
             fivemresname_tb.Text = rnd.Next(2147483647).ToString();
@@ -270,13 +273,15 @@ namespace GTA5_RPF_FiveM_Convertor
 
         }
 
-
-
-
-
-
-
-
+        private void fixTextureFile(string filePath)
+        {
+            LogAppend("[FIX4BYTE] Fixing " + filePath + "...");
+            string content = File.ReadAllText(filePath, Encoding.Default);
+            char[] array = content.ToCharArray();
+            array[3] = '7';
+            content = new string(array);
+            File.WriteAllText(filePath, content, Encoding.Default);
+        }
 
 
         private void inflateFromCache(string resname, string type, bool isYtd, bool isYtf)
@@ -291,13 +296,15 @@ namespace GTA5_RPF_FiveM_Convertor
                 LogAppend("[MOVE] Inflating " + resname + @"\" + item);
                 if(isYtd)
                 {
+                    fixTextureFile(item);
                     File.Move(item, Path.Combine(resname + "\\stream", Path.GetFileName(item))); // put into stream folder inside resource name
                     vmenuHelper(Path.GetFileName(item));
+                    
                 }
                 else if (isYtf)
                 {
+                    fixTextureFile(item);
                     File.Move(item, Path.Combine(resname + "\\stream", Path.GetFileName(item))); // put into stream folder inside resource name
-
                 }
                 else
                 {
@@ -412,8 +419,9 @@ namespace GTA5_RPF_FiveM_Convertor
 
         public async Task startConvert(string link, string resname)
         {
+            Encoding utf8WithoutBom = new UTF8Encoding(false);
 
-           Regex rx = new Regex(@"<(.*?)>");
+            Regex rx = new Regex(@"<(.*?)>");
            string filteredresname = rx.Match(link).Groups[1].Value;
             var watch = System.Diagnostics.Stopwatch.StartNew();
             LogAppend("[WORKER] Started resConvert async task...");
@@ -433,7 +441,7 @@ namespace GTA5_RPF_FiveM_Convertor
                 LogAppend("[WORKER] Created " + filteredresname + " FiveM resource directory...");
                 hideshellcmd("mkdir " + filteredresname + @"\stream");
                 await Task.Delay(500);
-                File.WriteAllText(filteredresname + @"\__resource.lua", reslua.Text);
+                File.WriteAllText(filteredresname + @"\__resource.lua", reslua.Text, utf8WithoutBom);
                 try
                 {
                     LogAppend("[WORKER] Checking link...OK");

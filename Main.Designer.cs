@@ -248,9 +248,9 @@
             this.label7.Enabled = false;
             this.label7.Location = new System.Drawing.Point(227, -2);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(370, 16);
+            this.label7.Size = new System.Drawing.Size(369, 16);
             this.label7.TabIndex = 13;
-            this.label7.Text = "buildname beta_cobra4 | developed by: github.com/vscorpio";
+            this.label7.Text = "buildname beta_zebra5 | developed by: github.com/vscorpio";
             // 
             // groupBox3
             // 
@@ -339,7 +339,7 @@
             // 
             // reslua
             // 
-            this.reslua.Location = new System.Drawing.Point(516, 537);
+            this.reslua.Location = new System.Drawing.Point(897, 563);
             this.reslua.Multiline = true;
             this.reslua.Name = "reslua";
             this.reslua.Size = new System.Drawing.Size(557, 236);
@@ -365,7 +365,7 @@
             // 
             // delspace
             // 
-            this.delspace.Location = new System.Drawing.Point(41, 537);
+            this.delspace.Location = new System.Drawing.Point(422, 551);
             this.delspace.Multiline = true;
             this.delspace.Name = "delspace";
             this.delspace.Size = new System.Drawing.Size(469, 248);
@@ -381,7 +381,7 @@
             this.toolStripStatusLabel1,
             this.tsQueue,
             this.tsBar});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 519);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 517);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1091, 22);
             this.statusStrip1.TabIndex = 14;
@@ -455,7 +455,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1091, 541);
+            this.ClientSize = new System.Drawing.Size(1091, 539);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.statusStrip1);
