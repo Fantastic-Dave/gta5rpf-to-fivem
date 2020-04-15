@@ -16,7 +16,7 @@ namespace GTA5_RPF_FiveM_Convertor
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new Main());
         }
     }
 }

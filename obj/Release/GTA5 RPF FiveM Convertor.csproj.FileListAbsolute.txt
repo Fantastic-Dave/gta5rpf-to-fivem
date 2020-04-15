@@ -1,0 +1,27 @@
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Release\GTA5Mods to FiveM Convertor.exe.config
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Release\GTA5Mods to FiveM Convertor.exe.manifest
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Release\GTA5Mods to FiveM Convertor.application
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Release\GTA5Mods to FiveM Convertor.exe
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Release\GTA5Mods to FiveM Convertor.pdb
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Release\SharpCompress.dll
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Release\System.Buffers.dll
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Release\System.Memory.dll
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Release\System.Numerics.Vectors.dll
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Release\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Release\System.Text.Encoding.CodePages.dll
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Release\System.Buffers.xml
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Release\System.Memory.xml
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Release\System.Numerics.Vectors.xml
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Release\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Release\System.Text.Encoding.CodePages.xml
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\obj\Release\GTA5 RPF FiveM Convertor.csprojAssemblyReference.cache
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\obj\Release\GTA5_RPF_FiveM_Convertor.Main.resources
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\obj\Release\GTA5_RPF_FiveM_Convertor.Properties.Resources.resources
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\obj\Release\GTA5 RPF FiveM Convertor.csproj.GenerateResource.cache
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\obj\Release\GTA5 RPF FiveM Convertor.csproj.CoreCompileInputs.cache
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\obj\Release\GTA5Mods to FiveM Convertor.TrustInfo.xml
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\obj\Release\GTA5Mods to FiveM Convertor.exe.manifest
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\obj\Release\GTA5Mods to FiveM Convertor.application
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\obj\Release\GTA5 RPF FiveM Convertor.csproj.CopyComplete
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\obj\Release\GTA5Mods to FiveM Convertor.exe
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\obj\Release\GTA5Mods to FiveM Convertor.pdb
