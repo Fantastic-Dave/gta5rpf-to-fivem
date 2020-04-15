@@ -415,8 +415,6 @@ namespace GTA5_RPF_FiveM_Convertor
 
            Regex rx = new Regex(@"<(.*?)>");
            string filteredresname = rx.Match(link).Groups[1].Value;
-            MessageBox.Show(filteredresname);
-
             var watch = System.Diagnostics.Stopwatch.StartNew();
             LogAppend("[WORKER] Started resConvert async task...");
             LogAppend("[WORKER] Cleaning cache...");

@@ -14,3 +14,6 @@
         "19gt500.ytd",
         "rs7.ytd",
         "rs7.ytd",
+        "XADV.ytd",
+        "XADV.ytd",
+        "XADV.ytd",
