@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
             this.btnAddQueue = new System.Windows.Forms.Button();
             this.queueList = new System.Windows.Forms.ListBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -59,13 +60,13 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.delspace = new System.Windows.Forms.TextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tsStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.jobTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsQueue = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tsStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsBar = new System.Windows.Forms.ToolStripProgressBar();
-            this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.jobTime = new System.Windows.Forms.ToolStripStatusLabel();
+            this.button1 = new System.Windows.Forms.Button();
             this.gta5mods_tb = new GTA5_RPF_FiveM_Convertor.PlaceHolderTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -93,6 +94,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "RPF Selector";
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(114, 68);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(102, 23);
+            this.button4.TabIndex = 19;
+            this.button4.Text = "Clear queue";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // btnAddQueue
             // 
             this.btnAddQueue.Enabled = false;
@@ -110,7 +121,7 @@
             this.queueList.ItemHeight = 16;
             this.queueList.Location = new System.Drawing.Point(6, 113);
             this.queueList.Name = "queueList";
-            this.queueList.Size = new System.Drawing.Size(446, 116);
+            this.queueList.Size = new System.Drawing.Size(452, 116);
             this.queueList.TabIndex = 17;
             // 
             // label8
@@ -194,11 +205,11 @@
             // 
             // gtautilfix
             // 
-            this.gtautilfix.Location = new System.Drawing.Point(389, 12);
+            this.gtautilfix.Location = new System.Drawing.Point(310, 12);
             this.gtautilfix.Name = "gtautilfix";
             this.gtautilfix.Size = new System.Drawing.Size(75, 23);
             this.gtautilfix.TabIndex = 6;
-            this.gtautilfix.Text = "Fix";
+            this.gtautilfix.Text = "Set Path";
             this.gtautilfix.UseVisualStyleBackColor = true;
             this.gtautilfix.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -376,6 +387,19 @@
             this.statusStrip1.TabIndex = 14;
             this.statusStrip1.Text = "tsStatus";
             // 
+            // tsStatus
+            // 
+            this.tsStatus.Name = "tsStatus";
+            this.tsStatus.Size = new System.Drawing.Size(67, 17);
+            this.tsStatus.Text = "Status:  Idle";
+            this.tsStatus.Click += new System.EventHandler(this.toolStripStatusLabel2_Click);
+            // 
+            // jobTime
+            // 
+            this.jobTime.Name = "jobTime";
+            this.jobTime.Size = new System.Drawing.Size(109, 17);
+            this.jobTime.Text = "| Last job time: 0ms";
+            // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
@@ -388,27 +412,10 @@
             this.tsQueue.Size = new System.Drawing.Size(65, 17);
             this.tsQueue.Text = "Queue: 0/0";
             // 
-            // tsStatus
-            // 
-            this.tsStatus.Name = "tsStatus";
-            this.tsStatus.Size = new System.Drawing.Size(67, 17);
-            this.tsStatus.Text = "Status:  Idle";
-            this.tsStatus.Click += new System.EventHandler(this.toolStripStatusLabel2_Click);
-            // 
             // tsBar
             // 
             this.tsBar.Name = "tsBar";
             this.tsBar.Size = new System.Drawing.Size(100, 16);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(114, 68);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(102, 23);
-            this.button4.TabIndex = 19;
-            this.button4.Text = "Clear queue";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
@@ -421,11 +428,15 @@
             this.button5.Visible = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
-            // jobTime
+            // button1
             // 
-            this.jobTime.Name = "jobTime";
-            this.jobTime.Size = new System.Drawing.Size(109, 17);
-            this.jobTime.Text = "| Last job time: 0ms";
+            this.button1.Location = new System.Drawing.Point(389, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 21;
+            this.button1.Text = "Reset";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // gta5mods_tb
             // 
@@ -445,6 +456,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1091, 541);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.delspace);
@@ -516,6 +528,7 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.ToolStripStatusLabel jobTime;
+        private System.Windows.Forms.Button button1;
     }
 }
 

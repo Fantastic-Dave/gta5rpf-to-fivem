@@ -16,6 +16,7 @@ using SharpCompress.Archives.Zip;
 using System.Threading;
 using System.Diagnostics;
 using SharpCompress.Archives.SevenZip;
+using System.Text.RegularExpressions;
 
 namespace GTA5_RPF_FiveM_Convertor
 {
@@ -203,6 +204,14 @@ namespace GTA5_RPF_FiveM_Convertor
                 unZip(Path.Combine("cache", Path.GetFileName(item)));
             }
 
+            string sevenfileExtension = "*.7z";
+            string[] sevenFiles = Directory.GetFiles("cache", sevenfileExtension, SearchOption.AllDirectories);
+
+            foreach (var item in sevenFiles)
+            {
+                unSeven(Path.Combine("cache", Path.GetFileName(item)));
+            }
+
         }
 
         private void rpfUnpack()
@@ -309,8 +318,11 @@ namespace GTA5_RPF_FiveM_Convertor
             {
                 queueHandler(currentQueue, queueList.Items.Count);
                 tsBar.Value++;
-                await startConvert(currentItem);
-                
+                string abc = currentItem;
+                Regex rx = new Regex(@"<(.*?)>");
+                await startConvert(currentItem, rx.Match(currentItem).Groups[1].Value);
+
+
             }
                 
             
@@ -368,9 +380,9 @@ namespace GTA5_RPF_FiveM_Convertor
 
         }
 
-        private void placeHolderTextBox1_TextChanged(object sender, EventArgs e)
+        private void placeHolderTextBox1_TextChanged(object sender, EventArgs e) //!gta5mods_tb.Text.Contains("7z")
         {
-            if (gta5mods_tb.Text.Contains("https://files.gta5-mods.com/") && checkGtaUtil() && !gta5mods_tb.Text.Contains("7z") && !gta5mods_tb.Text.Contains("XXXCARNAMEXXXX"))
+            if (gta5mods_tb.Text.Contains("https://files.gta5-mods.com/") && checkGtaUtil() && !gta5mods_tb.Text.Contains("XXXCARNAMEXXXX"))
             {
                 gta5mods_status.ForeColor = Color.Green;
                 gta5mods_status.Text = "OK";
@@ -389,81 +401,86 @@ namespace GTA5_RPF_FiveM_Convertor
         private void btnAddQueue_Click(object sender, EventArgs e)
         {
             LogAppend("Job added!");
-            queueList.Items.Add(gta5mods_tb.Text);
+            queueList.Items.Add($"<{fivemresname_tb.Text}>" + gta5mods_tb.Text);
             btnStart.Enabled = true;
             queueHandler(0, queueList.Items.Count);
             gta5mods_tb.Clear();
             gta5mods_tb.PlaceHolderText = "https://files.gta5-mods.com/uploads/XXXCARNAMEXXXX/XXXCARNAMEXXXX.zipp";
             this.ActiveControl = label1;
+            fivemresname_tb.Text = rnd.Next(2147483647).ToString();
         }
 
-        public async Task startConvert(string link)
+        public async Task startConvert(string link, string resname)
         {
+
+           Regex rx = new Regex(@"<(.*?)>");
+           string filteredresname = rx.Match(link).Groups[1].Value;
+            MessageBox.Show(filteredresname);
+
             var watch = System.Diagnostics.Stopwatch.StartNew();
-            // the code that you want to measure comes here
             LogAppend("[WORKER] Started resConvert async task...");
             LogAppend("[WORKER] Cleaning cache...");
             cleanUp();
             if (vmenucheck.Checked == true)
             {
 
-            }
-            string resname = fivemresname_tb.Text;
-            string archive = gta5mods_tb.Text.ToString();
-            LogAppend("[WORKER] Setting up environment...");
-            Directory.CreateDirectory("cache");
-            Directory.CreateDirectory(resname);
-            Directory.CreateDirectory(@"cache\unpack");
-            File.WriteAllText(@"cache\unpack\delspace.bat", delspace.Text);
-            cfgHelper(resname);
-            LogAppend("[WORKER] Created " + resname + " FiveM resource directory...");
-            hideshellcmd("mkdir " + resname + @"\stream");
-            File.WriteAllText(resname + @"\__resource.lua", reslua.Text);
-            try
-            {
-                LogAppend("[WORKER] Checking link...OK");
-                LogAppend("[ASYNCDL] Downloading archive...");
-                await asyncfileDownload(link);
-                LogAppend("[ASYNCDL] Successfully fetched archive!");
-                hideshellcmd(@"move *.rar cache");
-                hideshellcmd(@"move *.zip cache");
-                hideshellcmd(@"move *.7z cache");
-                LogAppend("[SharpCompress] Decompressing...");
+
+                string archive = gta5mods_tb.Text.ToString();
+                LogAppend("[WORKER] Setting up environment...");
+                Directory.CreateDirectory("cache");
+                //Directory.CreateDirectory((rx.Match(resname).Groups[1].Value));
+                Directory.CreateDirectory(@"cache\unpack");
+                File.WriteAllText(@"cache\unpack\delspace.bat", delspace.Text);
+                cfgHelper(filteredresname);
+                LogAppend("[WORKER] Created " + filteredresname + " FiveM resource directory...");
+                hideshellcmd("mkdir " + filteredresname + @"\stream");
                 await Task.Delay(500);
-                universalCacheUnpack();
-                await Task.Delay(2500);
-                LogAppend("[SharpCompress] Unpack finished!");
-                delReplacementLeftover(resname, "yft");
-                delReplacementLeftover(resname, "ytd");
-                delReplacementLeftover(resname, "meta");
-                LogAppend("[DELSPACE] Stripping space in resource name (gtalib bug) ...");
-                hideshellcmd(@"cache\unpack\delspace.bat");
-                await Task.Delay(2000);
-                LogAppend("[WORKER] Searching for dlc.rpf...");
-                rpfUnpack();
-                LogAppend("[GTAUtil] Unpacking RPF...");
-                await Task.Delay(5000);
-                inflateFromCache(resname, "meta", false, false);
-                inflateFromCache(resname, "yft", false, true);
-                inflateFromCache(resname, "ytd", true, false);
-                LogAppend("[WORKER] Cleaning up...");
-                currentQueue += 1;
-                cleanUp();
-                watch.Stop();
-                var elapsedMs = watch.ElapsedMilliseconds;
-                jobTime.Text = "| Last job took: " + elapsedMs + " ms";
+                File.WriteAllText(filteredresname + @"\__resource.lua", reslua.Text);
+                try
+                {
+                    LogAppend("[WORKER] Checking link...OK");
+                    LogAppend("[ASYNCDL] Downloading archive...");
+                    await asyncfileDownload(link.Replace($"<{resname}>", ""));
+                    LogAppend("[ASYNCDL] Successfully fetched archive!");
+                    hideshellcmd(@"move *.rar cache");
+                    hideshellcmd(@"move *.zip cache");
+                    hideshellcmd(@"move *.7z cache");
+                    LogAppend("[SharpCompress] Decompressing...");
+                    await Task.Delay(500);
+                    universalCacheUnpack();
+                    await Task.Delay(2500);
+                    LogAppend("[SharpCompress] Unpack finished!");
+                    delReplacementLeftover(filteredresname, "yft");
+                    delReplacementLeftover(filteredresname, "ytd");
+                    delReplacementLeftover(filteredresname, "meta");
+                    LogAppend("[DELSPACE] Stripping space in resource name (gtalib bug) ...");
+                    hideshellcmd(@"cache\unpack\delspace.bat");
+                    await Task.Delay(2000);
+                    LogAppend("[WORKER] Searching for dlc.rpf...");
+                    rpfUnpack();
+                    LogAppend("[GTAUtil] Unpacking RPF...");
+                    await Task.Delay(5000);
+                    inflateFromCache(filteredresname, "meta", false, false);
+                    inflateFromCache(filteredresname, "yft", false, true);
+                    inflateFromCache(filteredresname, "ytd", true, false);
+                    LogAppend("[WORKER] Cleaning up...");
+                    currentQueue += 1;
+                    cleanUp();
+                    watch.Stop();
+                    var elapsedMs = watch.ElapsedMilliseconds;
+                    jobTime.Text = "| Last job took: " + elapsedMs + " ms";
+
+
+                }
+                catch (Exception ex)
+                {
+                    LogAppend("[ERROR] An error occured. Stacktrace:");
+                    LogAppend(ex.ToString());
+                }
 
 
             }
-            catch (Exception ex)
-            {
-                LogAppend("[ERROR] An error occured. Stacktrace:");
-                LogAppend(ex.ToString());
-            }
-
-
         }
-
         private void button4_Click(object sender, EventArgs e)
         {
             queueList.Items.Clear();
@@ -476,6 +493,22 @@ namespace GTA5_RPF_FiveM_Convertor
             {
                 queueList.Items.Add("https://files.gta5-mods.com/uploads/1998-audi-s8-d2-us-6spd-add-on-replace-tuning-extras/15b8b3-1998%20Audi%20S8%20(D2)%20-%20v1.1.zip");
             }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("USe this in case you MOVE the application to some other place after you ran it once.", "Reset GTAUtil paths", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\GTAUtil", true);
+                Environment.Exit(0);
+                Application.Restart();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+            
         }
     }
 }

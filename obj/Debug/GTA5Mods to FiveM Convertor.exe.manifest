@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GTA5Mods to FiveM Convertor.exe" size="279520">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GTA5Mods to FiveM Convertor.exe" size="281056">
       <assemblyIdentity name="GTA5Mods to FiveM Convertor" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Qdi6pnod39w4reZRBNrsWIqwDjhffDeobEmIW7AjPBo=</dsig:DigestValue>
+        <dsig:DigestValue>MleKE5Cjq8QrIynD72Z9XvN/QERqEtCC8un8sPJFHWY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
