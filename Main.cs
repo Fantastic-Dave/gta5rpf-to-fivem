@@ -17,6 +17,7 @@ using System.Threading;
 using System.Diagnostics;
 using SharpCompress.Archives.SevenZip;
 using System.Text.RegularExpressions;
+using AutoUpdaterDotNET;
 
 namespace GTA5_RPF_FiveM_Convertor
 {
@@ -247,7 +248,9 @@ namespace GTA5_RPF_FiveM_Convertor
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            Random rnd = new Random();
+            int cachebust = rnd.Next(555);
+            AutoUpdater.Start("https://gist.githubusercontent.com/vscorpio/e9f5b4e8fea80d323a665a12d12032d9/raw/autoupdater.xml?cachebust=" + cachebust);
             this.ActiveControl = label1; // prevent random textbox focus
             LogAppend("CFG Helpers switched on");
             fivemresname_tb.Text = rnd.Next(2147483647).ToString();

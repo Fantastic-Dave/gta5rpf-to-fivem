@@ -25,3 +25,6 @@ C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\obj\Debug\GTA5Mods to FiveM
 C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\obj\Debug\GTA5Mods to FiveM Convertor.application
 C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\obj\Debug\GTA5Mods to FiveM Convertor.exe
 C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\obj\Debug\GTA5Mods to FiveM Convertor.pdb
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Debug\AutoUpdater.NET.dll
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Debug\AutoUpdater.NET.pdb
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Debug\AutoUpdater.NET.xml

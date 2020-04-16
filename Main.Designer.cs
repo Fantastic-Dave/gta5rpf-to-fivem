@@ -248,9 +248,9 @@
             this.label7.Enabled = false;
             this.label7.Location = new System.Drawing.Point(227, -2);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(369, 16);
+            this.label7.Size = new System.Drawing.Size(372, 16);
             this.label7.TabIndex = 13;
-            this.label7.Text = "buildname beta_zebra5 | developed by: github.com/vscorpio";
+            this.label7.Text = "buildname beta_camel6 | developed by: github.com/vscorpio";
             // 
             // groupBox3
             // 
