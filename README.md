@@ -9,9 +9,6 @@ We've all been through this, you started working on your FiveM server and starte
 - Microsoft .NET Framework 4.8
 https://dotnet.microsoft.com/download/dotnet-framework/net48
 
-<b>Warning</b>
-If you ever used GTAUtil or GTAUtil based tools, you need to run the program then click Reset and follow the steps shown on screen.
-
 
 <b>How to use</b>
 <ul>
