@@ -37,12 +37,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.gta5mods_status = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.localrpf_tb = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.gta5path_status = new System.Windows.Forms.Label();
-            this.gtautilfix = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.log = new System.Windows.Forms.TextBox();
@@ -56,7 +52,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnStart = new System.Windows.Forms.Button();
             this.reslua = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.delspace = new System.Windows.Forms.TextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -65,8 +60,8 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsQueue = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsBar = new System.Windows.Forms.ToolStripProgressBar();
-            this.button5 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.gtaFolder_tb = new System.Windows.Forms.TextBox();
             this.gta5mods_tb = new GTA5_RPF_FiveM_Convertor.PlaceHolderTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -83,13 +78,10 @@
             this.groupBox1.Controls.Add(this.gta5mods_tb);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.gta5mods_status);
-            this.groupBox1.Controls.Add(this.button3);
-            this.groupBox1.Controls.Add(this.localrpf_tb);
-            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 38);
+            this.groupBox1.Location = new System.Drawing.Point(12, 81);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(458, 283);
+            this.groupBox1.Size = new System.Drawing.Size(458, 240);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "RPF Selector";
@@ -154,34 +146,6 @@
             this.gta5mods_status.TabIndex = 10;
             this.gta5mods_status.Text = "BAD LINK";
             // 
-            // button3
-            // 
-            this.button3.Enabled = false;
-            this.button3.Location = new System.Drawing.Point(377, 251);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 8;
-            this.button3.Text = "Browse";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // localrpf_tb
-            // 
-            this.localrpf_tb.Enabled = false;
-            this.localrpf_tb.Location = new System.Drawing.Point(9, 251);
-            this.localrpf_tb.Name = "localrpf_tb";
-            this.localrpf_tb.Size = new System.Drawing.Size(362, 22);
-            this.localrpf_tb.TabIndex = 3;
-            this.localrpf_tb.Text = "currently disabled";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 232);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(155, 16);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Standalone RPF Archive";
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -197,30 +161,20 @@
             this.gta5path_status.BackColor = System.Drawing.SystemColors.Control;
             this.gta5path_status.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gta5path_status.ForeColor = System.Drawing.Color.Crimson;
-            this.gta5path_status.Location = new System.Drawing.Point(167, 12);
+            this.gta5path_status.Location = new System.Drawing.Point(396, 12);
             this.gta5path_status.Name = "gta5path_status";
             this.gta5path_status.Size = new System.Drawing.Size(74, 16);
             this.gta5path_status.TabIndex = 9;
             this.gta5path_status.Text = "NOT SET";
-            // 
-            // gtautilfix
-            // 
-            this.gtautilfix.Location = new System.Drawing.Point(310, 12);
-            this.gtautilfix.Name = "gtautilfix";
-            this.gtautilfix.Size = new System.Drawing.Size(75, 23);
-            this.gtautilfix.TabIndex = 6;
-            this.gtautilfix.Text = "Set Path";
-            this.gtautilfix.UseVisualStyleBackColor = true;
-            this.gtautilfix.Click += new System.EventHandler(this.button1_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(9, 12);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(152, 16);
+            this.label3.Size = new System.Drawing.Size(102, 16);
             this.label3.TabIndex = 4;
-            this.label3.Text = "GTAUtil GTA folder path";
+            this.label3.Text = "GTA folder path";
             // 
             // groupBox2
             // 
@@ -248,9 +202,9 @@
             this.label7.Enabled = false;
             this.label7.Location = new System.Drawing.Point(227, -2);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(372, 16);
+            this.label7.Size = new System.Drawing.Size(371, 16);
             this.label7.TabIndex = 13;
-            this.label7.Text = "buildname beta_camel6 | developed by: github.com/vscorpio";
+            this.label7.Text = "buildname beta_venus7 | developed by: github.com/vscorpio";
             // 
             // groupBox3
             // 
@@ -347,17 +301,6 @@
             this.reslua.Text = resources.GetString("reslua.Text");
             this.reslua.Visible = false;
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(12, 457);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(258, 23);
-            this.button2.TabIndex = 11;
-            this.button2.Text = "devBTN1 stop thinkering around...";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Visible = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // timer1
             // 
             this.timer1.Interval = 5000;
@@ -417,30 +360,27 @@
             this.tsBar.Name = "tsBar";
             this.tsBar.Size = new System.Drawing.Size(100, 16);
             // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(276, 457);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 20;
-            this.button5.Text = "devBTN5";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Visible = false;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(389, 12);
+            this.button1.Location = new System.Drawing.Point(395, 57);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 21;
-            this.button1.Text = "Reset";
+            this.button1.Text = "Set";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
+            // gtaFolder_tb
+            // 
+            this.gtaFolder_tb.Location = new System.Drawing.Point(11, 29);
+            this.gtaFolder_tb.Name = "gtaFolder_tb";
+            this.gtaFolder_tb.ReadOnly = true;
+            this.gtaFolder_tb.Size = new System.Drawing.Size(459, 22);
+            this.gtaFolder_tb.TabIndex = 22;
+            // 
             // gta5mods_tb
             // 
-            this.gta5mods_tb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic);
+            this.gta5mods_tb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.gta5mods_tb.ForeColor = System.Drawing.Color.Gray;
             this.gta5mods_tb.Location = new System.Drawing.Point(9, 39);
             this.gta5mods_tb.Name = "gta5mods_tb";
@@ -456,18 +396,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1091, 539);
+            this.Controls.Add(this.gtaFolder_tb);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.button5);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.delspace);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.reslua);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.gta5path_status);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.gtautilfix);
             this.Controls.Add(this.label3);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -494,11 +432,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label gta5mods_status;
         private System.Windows.Forms.Label gta5path_status;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button gtautilfix;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox localrpf_tb;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox log;
@@ -512,7 +446,6 @@
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox reslua;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.TextBox delspace;
         private System.Windows.Forms.Label label7;
@@ -526,9 +459,8 @@
         private System.Windows.Forms.Button btnAddQueue;
         private System.Windows.Forms.ToolStripProgressBar tsBar;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.ToolStripStatusLabel jobTime;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox gtaFolder_tb;
     }
 }
-

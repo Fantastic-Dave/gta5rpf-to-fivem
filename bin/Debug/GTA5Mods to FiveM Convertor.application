@@ -7,14 +7,14 @@
     <framework targetVersion="4.8" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="GTA5Mods to FiveM Convertor.exe.manifest" size="10061">
+    <dependentAssembly dependencyType="install" codebase="GTA5Mods to FiveM Convertor.exe.manifest" size="12107">
       <assemblyIdentity name="GTA5Mods to FiveM Convertor.exe" version="1.5.4.2" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>EGQZ35FuggP5ocdHO/OIeDVxPaGREm5z5VTHCX7hun8=</dsig:DigestValue>
+        <dsig:DigestValue>vwfs92wvZAmNc9WkfqcCFAS23GF3yAPM6Nwr2m2nR7s=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

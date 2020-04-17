@@ -36,7 +36,7 @@ namespace GTA5_RPF_FiveM_Convertor
             {
                 base.Text = PlaceHolderText;
                 this.ForeColor = Color.Gray;
-                this.Font = new Font(this.Font, FontStyle.Italic);
+                this.Font = new Font(this.Font, FontStyle.Regular);
                 isPlaceHolder = true;
             }
         }

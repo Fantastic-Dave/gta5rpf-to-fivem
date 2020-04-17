@@ -18,6 +18,10 @@ using System.Diagnostics;
 using SharpCompress.Archives.SevenZip;
 using System.Text.RegularExpressions;
 using AutoUpdaterDotNET;
+using System.Reflection;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Cryptography;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace GTA5_RPF_FiveM_Convertor
 {
@@ -32,7 +36,7 @@ namespace GTA5_RPF_FiveM_Convertor
         Random rnd = new Random();
         bool vmenuhelper = true;
         bool servercfghelper = true;
-
+        string xmlTemplate;
 
         public Main()
         {
@@ -94,19 +98,6 @@ namespace GTA5_RPF_FiveM_Convertor
             tsQueue.Text = "Queue: " + current + "/" + total;
         }
 
-
-
-        private bool checkGtaUtil()
-        {
-            string localFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-
-            if (!Directory.Exists(localFolder + @"\GTAUtil"))
-            {
-                return false;
-            }
-            return true;
-
-        }
 
         private void cleanUp()
         {
@@ -244,6 +235,124 @@ namespace GTA5_RPF_FiveM_Convertor
         }
 
 
+        // LOCAL FOLDER URL HASING HELPERS
+
+
+        static Char[] s_Base32Char = {
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+            'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+            'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
+            'y', 'z', '0', '1', '2', '3', '4', '5'};
+
+        private static string ToBase32StringSuitableForDirName(byte[] buff)
+        {
+            StringBuilder sb = new StringBuilder();
+            byte b0, b1, b2, b3, b4;
+            int l, i;
+
+            l = buff.Length;
+            i = 0;
+
+            // Create l chars using the last 5 bits of each byte.  
+            // Consume 3 MSB bits 5 bytes at a time.
+
+            do
+            {
+                b0 = (i < l) ? buff[i++] : (byte)0;
+                b1 = (i < l) ? buff[i++] : (byte)0;
+                b2 = (i < l) ? buff[i++] : (byte)0;
+                b3 = (i < l) ? buff[i++] : (byte)0;
+                b4 = (i < l) ? buff[i++] : (byte)0;
+
+                // Consume the 5 Least significant bits of each byte
+                sb.Append(s_Base32Char[b0 & 0x1F]);
+                sb.Append(s_Base32Char[b1 & 0x1F]);
+                sb.Append(s_Base32Char[b2 & 0x1F]);
+                sb.Append(s_Base32Char[b3 & 0x1F]);
+                sb.Append(s_Base32Char[b4 & 0x1F]);
+
+                // Consume 3 MSB of b0, b1, MSB bits 6, 7 of b3, b4
+                sb.Append(s_Base32Char[(
+                    ((b0 & 0xE0) >> 5) |
+                    ((b3 & 0x60) >> 2))]);
+
+                sb.Append(s_Base32Char[(
+                    ((b1 & 0xE0) >> 5) |
+                    ((b4 & 0x60) >> 2))]);
+
+                // Consume 3 MSB bits of b2, 1 MSB bit of b3, b4
+
+                b2 >>= 5;
+
+                if ((b3 & 0x80) != 0)
+                    b2 |= 0x08;
+                if ((b4 & 0x80) != 0)
+                    b2 |= 0x10;
+
+                sb.Append(s_Base32Char[b2]);
+
+            } while (i < l);
+
+            return sb.ToString();
+        }
+
+        public static string GetLocalAppDataUserConfigPathNoUserConfigFolder(string fullExePath)
+        {
+            //E.g.: fullExePath = @"C:\Program Files (x86)\MyExeFolder\MyProgram.exe"
+            var localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+
+            var versionInfo = FileVersionInfo.GetVersionInfo(fullExePath);
+            var companyName = versionInfo.CompanyName;
+            var exeName = versionInfo.OriginalFilename;// or 'AppDomain.CurrentDomain.FriendlyName'
+
+            var assemblyName = AssemblyName.GetAssemblyName(fullExePath);
+            var version = assemblyName.Version.ToString();
+
+            var uri = "file:///" + fullExePath; //or 'assemblyName.CodeBase' if vshost (you can check the 'FriendlyName')
+            uri = uri.ToUpperInvariant();
+
+            var ms = new MemoryStream();
+            var bSer = new BinaryFormatter();
+            bSer.Serialize(ms, uri);
+            ms.Position = 0;
+            var sha1 = new SHA1CryptoServiceProvider();
+            var hash = sha1.ComputeHash(ms);
+            var hashstring = ToBase32StringSuitableForDirName(hash);
+
+            //<AppData Local User Path> + <Company Name> + <[ExeName]_[eid]_[Hash]> + <Version> + user.config
+            var userConfigLocalAppDataPath = Path.Combine(localAppDataPath, "GTAUtil", companyName, exeName + "_Url_" + hashstring, version);
+
+            return userConfigLocalAppDataPath;
+        }
+
+        public static string GetExeLocalAppDataUserConfigPath(string fullExePath)
+        {
+            //E.g.: fullExePath = @"C:\Program Files (x86)\MyExeFolder\MyProgram.exe"
+            var localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+
+            var versionInfo = FileVersionInfo.GetVersionInfo(fullExePath);
+            var companyName = versionInfo.CompanyName;
+            var exeName = versionInfo.OriginalFilename;// or 'AppDomain.CurrentDomain.FriendlyName'
+
+            var assemblyName = AssemblyName.GetAssemblyName(fullExePath);
+            var version = assemblyName.Version.ToString();
+
+            var uri = "file:///" + fullExePath; //or 'assemblyName.CodeBase' if vshost (you can check the 'FriendlyName')
+            uri = uri.ToUpperInvariant();
+
+            var ms = new MemoryStream();
+            var bSer = new BinaryFormatter();
+            bSer.Serialize(ms, uri);
+            ms.Position = 0;
+            var sha1 = new SHA1CryptoServiceProvider();
+            var hash = sha1.ComputeHash(ms);
+            var hashstring = ToBase32StringSuitableForDirName(hash);
+
+            //<AppData Local User Path> + <Company Name> + <[ExeName]_[eid]_[Hash]> + <Version> + user.config
+            var userConfigLocalAppDataPath = Path.Combine(localAppDataPath, "GTAUtil", companyName, exeName + "_Url_" + hashstring, version, "user.config");
+
+            return userConfigLocalAppDataPath;
+        }
 
 
         private void Form1_Load(object sender, EventArgs e)
@@ -254,16 +363,6 @@ namespace GTA5_RPF_FiveM_Convertor
             this.ActiveControl = label1; // prevent random textbox focus
             LogAppend("CFG Helpers switched on");
             fivemresname_tb.Text = rnd.Next(2147483647).ToString();
-            if (!checkGtaUtil())
-            {
-                MessageBox.Show("GTAUtil path is not set!");
-            }
-            else
-            {
-                gta5path_status.Text = "OK";
-                gta5path_status.ForeColor = Color.Green;
-                gtautilfix.Enabled = false;
-            }
             LogAppend("Elysium: GTA5 RPF to FiveM Addon Converter");
             LogAppend("---------------");
             LogAppend("Developed by king^vickynescu");
@@ -297,12 +396,12 @@ namespace GTA5_RPF_FiveM_Convertor
             foreach (var item in txtFiles)
             {
                 LogAppend("[MOVE] Inflating " + resname + @"\" + item);
-                if(isYtd)
+                if (isYtd)
                 {
                     fixTextureFile(item);
                     File.Move(item, Path.Combine(resname + "\\stream", Path.GetFileName(item))); // put into stream folder inside resource name
                     vmenuHelper(Path.GetFileName(item));
-                    
+
                 }
                 else if (isYtf)
                 {
@@ -316,9 +415,9 @@ namespace GTA5_RPF_FiveM_Convertor
             }
         }
 
-       
 
-       
+
+
 
         private async void btnStart_Click(object sender, EventArgs e)
         {
@@ -334,8 +433,8 @@ namespace GTA5_RPF_FiveM_Convertor
 
 
             }
-                
-            
+
+
             //startConvert(gta5mods_tb.Text);
         }
 
@@ -353,10 +452,6 @@ namespace GTA5_RPF_FiveM_Convertor
             tsStatus.Text = "Status: " + status;
         }
 
-        private void gta5path_tb_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -371,7 +466,7 @@ namespace GTA5_RPF_FiveM_Convertor
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if(vmenucheck.Checked == true)
+            if (vmenucheck.Checked == true)
             {
                 servercfghelper = true;
                 vmenuhelper = true;
@@ -392,7 +487,7 @@ namespace GTA5_RPF_FiveM_Convertor
 
         private void placeHolderTextBox1_TextChanged(object sender, EventArgs e) //!gta5mods_tb.Text.Contains("7z")
         {
-            if (gta5mods_tb.Text.Contains("https://files.gta5-mods.com/") && checkGtaUtil() && !gta5mods_tb.Text.Contains("XXXCARNAMEXXXX"))
+            if (gta5mods_tb.Text.Contains("https://files.gta5-mods.com/") && !gta5mods_tb.Text.Contains("XXXCARNAMEXXXX"))
             {
                 gta5mods_status.ForeColor = Color.Green;
                 gta5mods_status.Text = "OK";
@@ -425,7 +520,7 @@ namespace GTA5_RPF_FiveM_Convertor
             Encoding utf8WithoutBom = new UTF8Encoding(false);
 
             Regex rx = new Regex(@"<(.*?)>");
-           string filteredresname = rx.Match(link).Groups[1].Value;
+            string filteredresname = rx.Match(link).Groups[1].Value;
             var watch = System.Diagnostics.Stopwatch.StartNew();
             LogAppend("[WORKER] Started resConvert async task...");
             LogAppend("[WORKER] Cleaning cache...");
@@ -498,26 +593,86 @@ namespace GTA5_RPF_FiveM_Convertor
 
         private void button5_Click(object sender, EventArgs e)
         {
-            for(int i=1; i<= 3; i++)
+            for (int i = 1; i <= 3; i++)
             {
                 queueList.Items.Add("https://files.gta5-mods.com/uploads/1998-audi-s8-d2-us-6spd-add-on-replace-tuning-extras/15b8b3-1998%20Audi%20S8%20(D2)%20-%20v1.1.zip");
             }
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        async Task makeGtautilFolder(string gtaUtilTempFolder, string gtafolder)
         {
-            DialogResult dialogResult = MessageBox.Show("USe this in case you MOVE the application to some other place after you ran it once.", "Reset GTAUtil paths", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
+            xmlTemplate = $@"<?xml version=""1.0"" encoding=""utf-8""?>
+<configuration>
+    <configSections>
+        <sectionGroup name=""userSettings"" type=""System.Configuration.UserSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"" >
+            <section name=""GTAUtil.Settings"" type=""System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"" allowExeDefinition=""MachineToLocalUser"" requirePermission=""false"" />
+        </sectionGroup>
+    </configSections>
+    <userSettings>
+        <GTAUtil.Settings>
+            <setting name=""GTAFolder"" serializeAs=""String"">
+                <value>{gtafolder}</value>
+            </setting>
+        </GTAUtil.Settings>
+    </userSettings>
+</configuration>";
+
+
+            try
             {
-                Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\GTAUtil", true);
-                Environment.Exit(0);
-                Application.Restart();
+                Directory.CreateDirectory(GetLocalAppDataUserConfigPathNoUserConfigFolder(Path.Combine(Directory.GetCurrentDirectory(), @"lib\gtautil\GTAUtil.exe")));
+                await Task.Delay(1000);
+                //MessageBox.Show(gtaUtilTempFolder);
+                File.WriteAllText(gtaUtilTempFolder, xmlTemplate, Encoding.Default);
             }
-            else if (dialogResult == DialogResult.No)
+            catch
             {
-                //do something else
+                //error handling
             }
-            
+
+
+        }
+
+
+
+
+        private async void button1_Click_1(object sender, EventArgs e)
+        {
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            dialog.InitialDirectory = "C:\\Users";
+            dialog.IsFolderPicker = true;
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                gtaFolder_tb.Text = dialog.FileName;
+                if (checkGtaFolder())
+                {
+                    await makeGtautilFolder(GetExeLocalAppDataUserConfigPath(Path.Combine(Directory.GetCurrentDirectory(), @"lib\gtautil\GTAUtil.exe")), dialog.FileName);
+                    await makeGtautilFolder(GetExeLocalAppDataUserConfigPath(Path.Combine(Directory.GetCurrentDirectory(), @"lib\gtautil\GTAUtil.exe")), dialog.FileName);
+
+                    btnAddQueue.Enabled = true;
+                    gta5path_status.Text = "OK";
+                    gta5path_status.ForeColor = Color.Green;
+                }
+                else
+                {
+                    btnAddQueue.Enabled = false;
+                    gta5path_status.Text = "NOT SET";
+                    gta5path_status.ForeColor = Color.Red;
+                }
+            }
+
+        }
+
+        private bool checkGtaFolder()
+        {
+            if (gtaFolder_tb.Text.Contains(@"\Grand Theft Auto V") && !gtaFolder_tb.Text.Contains(@"GTA5.exe"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

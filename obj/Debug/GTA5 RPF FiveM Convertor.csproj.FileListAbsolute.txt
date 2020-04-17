@@ -28,3 +28,10 @@ C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\obj\Debug\GTA5Mods to FiveM
 C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Debug\AutoUpdater.NET.dll
 C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Debug\AutoUpdater.NET.pdb
 C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Debug\AutoUpdater.NET.xml
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Debug\nunit.framework.dll
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Debug\nunit.framework.pdb
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Debug\nunit.framework.xml
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Debug\Microsoft.WindowsAPICodePack.dll
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Debug\Microsoft.WindowsAPICodePack.xml
+C:\Users\victo\source\repos\GTA5 RPF FiveM Convertor\bin\Debug\Microsoft.WindowsAPICodePack.Shell.xml
