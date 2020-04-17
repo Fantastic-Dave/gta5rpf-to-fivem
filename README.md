@@ -1,5 +1,6 @@
 <h1>GTA5Mods to FiveM Addon Converter</h1>
-https://forum.cfx.re/t/gta5-mods-to-fivem-addon-converter/1142154/21
+
+PLEASE VIEW THIS FIRST: https://forum.cfx.re/t/gta5-mods-to-fivem-addon-converter/1142154/21
 
 <b>Info</b>\
 We've all been through this, you started working on your FiveM server and started adding vehicles, but, you got tired of switching back and forth between OpenIV and 100 notepads open. I made this tool for you.
@@ -29,17 +30,8 @@ If you ever used GTAUtil or GTAUtil based tools, you need to run the program the
 Most of the people use vMenu for their server, and I setup a quick little helper for you. After each conversion, a new entry is added in vmenu.txt. You can copy all those lines and add them to your addons.json in vMenu configuration. Also, a "ensure <resourcename>" is also added in server.txt so if you add many vehicles at once you don't have to go over each one again.
 
 <b>Credits</b>
-- vickynescu (Developer)
 - indilo53 (GTAUtil - https://github.com/indilo53/gtautil) without this great tool I couldn't have made this other great tool! :D
 
 <b>Known issues</b>
-- 7z decompression is known to take double the time (2x5s -10s) it should because of a bug in SharpCompress I couldn't fix
-- If you ever used GTAUtil or GTAUtil based tools, you need to run the program then click Reset and follow the steps shown on screen.
-- Running the program then moving it and running again breaks some GTAUtil saving (if you want to move the program after running it once, click Reset button next to GTAUtil
+Check issues page.
 
-GitHub:
-https://github.com/vscorpio/gta5rpf-to-fivem
-Download link:
-https://github.com/vscorpio/gta5rpf-to-fivem/releases/tag/beta_cobra4
-
-Note for mods: I created another topic because I couldn't re-flag the locked, hidden one.
