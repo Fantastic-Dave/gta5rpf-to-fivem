@@ -764,7 +764,7 @@ namespace GTA5_RPF_FiveM_Convertor
                     Directory.Move(file.FullName, @"cache\" + file.Name);
                     await startConvertFromFolder(convertFromFolder_resname.ToString());
                 }
-                foreach (var file in d.GetFiles("*.zip"))
+                foreach (var file in d.GetFiles("*.7z"))
                 {
                     Directory.CreateDirectory("cache");
                     LogAppend($"Found archive: {file.FullName}");
