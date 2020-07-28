@@ -62,6 +62,7 @@
             this.tsBar = new System.Windows.Forms.ToolStripProgressBar();
             this.button1 = new System.Windows.Forms.Button();
             this.gtaFolder_tb = new System.Windows.Forms.TextBox();
+            this.btnConvertFromFolder = new System.Windows.Forms.Button();
             this.gta5mods_tb = new GTA5_RPF_FiveM_Convertor.PlaceHolderTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -140,7 +141,7 @@
             this.gta5mods_status.BackColor = System.Drawing.SystemColors.Control;
             this.gta5mods_status.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gta5mods_status.ForeColor = System.Drawing.Color.Crimson;
-            this.gta5mods_status.Location = new System.Drawing.Point(374, 75);
+            this.gta5mods_status.Location = new System.Drawing.Point(377, 20);
             this.gta5mods_status.Name = "gta5mods_status";
             this.gta5mods_status.Size = new System.Drawing.Size(75, 16);
             this.gta5mods_status.TabIndex = 10;
@@ -204,7 +205,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(371, 16);
             this.label7.TabIndex = 13;
-            this.label7.Text = "buildname beta_venus7 | developed by: github.com/vscorpio";
+            this.label7.Text = "buildname beta_saturn8 | developed by: github.com/vscorpio";
             // 
             // groupBox3
             // 
@@ -378,6 +379,17 @@
             this.gtaFolder_tb.Size = new System.Drawing.Size(459, 22);
             this.gtaFolder_tb.TabIndex = 22;
             // 
+            // btnConvertFromFolder
+            // 
+            this.btnConvertFromFolder.Enabled = false;
+            this.btnConvertFromFolder.Location = new System.Drawing.Point(93, 486);
+            this.btnConvertFromFolder.Name = "btnConvertFromFolder";
+            this.btnConvertFromFolder.Size = new System.Drawing.Size(146, 23);
+            this.btnConvertFromFolder.TabIndex = 20;
+            this.btnConvertFromFolder.Text = "Convert from folder";
+            this.btnConvertFromFolder.UseVisualStyleBackColor = true;
+            this.btnConvertFromFolder.Click += new System.EventHandler(this.button2_Click_1);
+            // 
             // gta5mods_tb
             // 
             this.gta5mods_tb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
@@ -397,6 +409,7 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1091, 539);
             this.Controls.Add(this.gtaFolder_tb);
+            this.Controls.Add(this.btnConvertFromFolder);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.delspace);
@@ -462,5 +475,6 @@
         private System.Windows.Forms.ToolStripStatusLabel jobTime;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox gtaFolder_tb;
+        private System.Windows.Forms.Button btnConvertFromFolder;
     }
 }

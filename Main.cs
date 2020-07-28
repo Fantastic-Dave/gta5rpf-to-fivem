@@ -37,6 +37,7 @@ namespace GTA5_RPF_FiveM_Convertor
         bool vmenuhelper = true;
         bool servercfghelper = true;
         string xmlTemplate;
+        int convertFromFolder_resname;
 
         public Main()
         {
@@ -366,7 +367,7 @@ namespace GTA5_RPF_FiveM_Convertor
             LogAppend("Elysium: GTA5 RPF to FiveM Addon Converter");
             LogAppend("---------------");
             LogAppend("Developed by king^vickynescu");
-            LogAppend("Discord: https://discord.gg/C4e4q6g");
+            LogAppend("Discord support: https://discord.gg/C4e4q6g");
             LogAppend("---------------");
 
             LogAppend("GTA5Mods links must look like this: ");
@@ -429,7 +430,7 @@ namespace GTA5_RPF_FiveM_Convertor
                 tsBar.Value++;
                 string abc = currentItem;
                 Regex rx = new Regex(@"<(.*?)>");
-                await startConvert(currentItem, rx.Match(currentItem).Groups[1].Value);
+                await startConvertFromLink(currentItem, rx.Match(currentItem).Groups[1].Value);
 
 
             }
@@ -515,7 +516,7 @@ namespace GTA5_RPF_FiveM_Convertor
             fivemresname_tb.Text = rnd.Next(2147483647).ToString();
         }
 
-        public async Task startConvert(string link, string resname)
+        public async Task startConvertFromLink(string link, string resname)
         {
             Encoding utf8WithoutBom = new UTF8Encoding(false);
 
@@ -549,6 +550,67 @@ namespace GTA5_RPF_FiveM_Convertor
                     hideshellcmd(@"move *.rar cache");
                     hideshellcmd(@"move *.zip cache");
                     hideshellcmd(@"move *.7z cache");
+                    LogAppend("[SharpCompress] Decompressing...");
+                    await Task.Delay(500);
+                    universalCacheUnpack();
+                    await Task.Delay(2500);
+                    LogAppend("[SharpCompress] Unpack finished!");
+                    delReplacementLeftover(filteredresname, "yft");
+                    delReplacementLeftover(filteredresname, "ytd");
+                    delReplacementLeftover(filteredresname, "meta");
+                    LogAppend("[DELSPACE] Stripping space in resource name (gtalib bug) ...");
+                    hideshellcmd(@"cache\unpack\delspace.bat");
+                    await Task.Delay(2000);
+                    LogAppend("[WORKER] Searching for dlc.rpf...");
+                    rpfUnpack();
+                    LogAppend("[GTAUtil] Unpacking RPF...");
+                    await Task.Delay(5000);
+                    inflateFromCache(filteredresname, "meta", false, false);
+                    inflateFromCache(filteredresname, "yft", false, true);
+                    inflateFromCache(filteredresname, "ytd", true, false);
+                    LogAppend("[WORKER] Cleaning up...");
+                    currentQueue += 1;
+                    cleanUp();
+                    watch.Stop();
+                    var elapsedMs = watch.ElapsedMilliseconds;
+                    jobTime.Text = "| Last job took: " + elapsedMs + " ms";
+
+
+                }
+                catch (Exception ex)
+                {
+                    LogAppend("[ERROR] An error occured. Stacktrace:");
+                    LogAppend(ex.ToString());
+                }
+
+
+            }
+        }
+
+        public async Task startConvertFromFolder(string filteredresname)
+        {
+            convertFromFolder_resname = rnd.Next(555555);
+            filteredresname = convertFromFolder_resname.ToString();
+            Encoding utf8WithoutBom = new UTF8Encoding(false);
+
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            LogAppend("[WORKER] Started resConvert async task...");
+            if (vmenucheck.Checked == true)
+            {
+
+                string archive = gta5mods_tb.Text.ToString();
+                LogAppend("[WORKER] Setting up environment...");
+                Directory.CreateDirectory("cache");
+                //Directory.CreateDirectory((rx.Match(resname).Groups[1].Value));
+                Directory.CreateDirectory(@"cache\unpack");
+                File.WriteAllText(@"cache\unpack\delspace.bat", delspace.Text);
+                cfgHelper(filteredresname);
+                LogAppend("[WORKER] Created " + filteredresname + " FiveM resource directory...");
+                hideshellcmd("mkdir " + filteredresname + @"\stream");
+                await Task.Delay(500);
+                File.WriteAllText(filteredresname + @"\__resource.lua", reslua.Text, utf8WithoutBom);
+                try
+                {
                     LogAppend("[SharpCompress] Decompressing...");
                     await Task.Delay(500);
                     universalCacheUnpack();
@@ -648,13 +710,14 @@ namespace GTA5_RPF_FiveM_Convertor
                 {
                     await makeGtautilFolder(GetExeLocalAppDataUserConfigPath(Path.Combine(Directory.GetCurrentDirectory(), @"lib\gtautil\GTAUtil.exe")), dialog.FileName);
                     await makeGtautilFolder(GetExeLocalAppDataUserConfigPath(Path.Combine(Directory.GetCurrentDirectory(), @"lib\gtautil\GTAUtil.exe")), dialog.FileName);
-
+                    btnConvertFromFolder.Enabled = true;
                     btnAddQueue.Enabled = true;
                     gta5path_status.Text = "OK";
                     gta5path_status.ForeColor = Color.Green;
                 }
                 else
                 {
+                    btnConvertFromFolder.Enabled = false;
                     btnAddQueue.Enabled = false;
                     gta5path_status.Text = "NOT SET";
                     gta5path_status.ForeColor = Color.Red;
@@ -673,6 +736,49 @@ namespace GTA5_RPF_FiveM_Convertor
             {
                 return false;
             }
+        }
+
+        private async void button2_Click_1(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            convertFromFolder_resname = rnd.Next(555555);
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            dialog.InitialDirectory = "C:\\Users";
+            dialog.IsFolderPicker = true;
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                string filepath = dialog.FileName;
+                DirectoryInfo d = new DirectoryInfo(filepath);
+
+                foreach (var file in d.GetFiles("*.zip"))
+                {
+                    Directory.CreateDirectory("cache");
+                    LogAppend($"Found archive: {file.FullName}");
+                    Directory.Move(file.FullName, @"cache\" + file.Name);
+                    await startConvertFromFolder(convertFromFolder_resname.ToString());
+                }
+                foreach (var file in d.GetFiles("*.rar"))
+                {
+                    Directory.CreateDirectory("cache");
+                    LogAppend($"Found archive: {file.FullName}");
+                    Directory.Move(file.FullName, @"cache\" + file.Name);
+                    await startConvertFromFolder(convertFromFolder_resname.ToString());
+                }
+                foreach (var file in d.GetFiles("*.7z"))
+                {
+                    Directory.CreateDirectory("cache");
+                    LogAppend($"Found archive: {file.FullName}");
+                    Directory.Move(file.FullName, @"cache\" + file.Name);
+                    await startConvertFromFolder(convertFromFolder_resname.ToString());
+                }
+
+            }
+            Task.Delay(1000);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
